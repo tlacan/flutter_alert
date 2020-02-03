@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 import 'dart:ui' show VoidCallback;
 import 'package:meta/meta.dart' show required;
 import 'package:flutter/widgets.dart' show BuildContext;
+import 'package:flutter/material.dart';
 
 import 'package:flutter_alert/flutter_alert_cupertino.dart';
 import 'package:flutter_alert/flutter_alert_material.dart';
@@ -68,6 +69,8 @@ void showAlert({
   /// The text was automatically rendered in a ScrollView.
   String body,
 
+  List<Widget> customContent,
+
   /// A List of actions. For each action there was shown one button.
   /// If there was no action defined, a default action with a
   /// (localized) "OK" button was shown.
@@ -90,6 +93,7 @@ void showAlert({
       context: context,
       title: title,
       body: body,
+      customContent: customContent,
       actions: actions,
       barrierDismissible: barrierDismissible,
       cancelable: cancelable,
@@ -99,6 +103,7 @@ void showAlert({
       context: context,
       title: title,
       body: body,
+      customContent: customContent,
       actions: actions,
       barrierDismissible: barrierDismissible,
       cancelable: cancelable,

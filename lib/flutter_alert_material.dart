@@ -22,6 +22,8 @@ void showMaterialAlert({
   /// (localized) "OK" button was shown.
   List<AlertAction> actions,
 
+  List<Widget> customContent,
+
   /// Allow you to define if the alert dialog is closable when
   /// the users taps beside the alert dialog.
   /// Default is only true when cancelable is set to true
@@ -61,7 +63,7 @@ void showMaterialAlert({
     barrierDismissible: barrierDismissible,
     builder: (BuildContext context) => AlertDialog(
           title: _buildTitle(title),
-          content: _buildBody(body),
+          content: _buildBody(body, customContent),
           actions: actions
               .map((AlertAction action) =>
                   _buildMaterialActionButton(context, action))
@@ -79,11 +81,23 @@ Widget _buildTitle(String title) {
   return Text(title);
 }
 
-Widget _buildBody(String body) {
-  if (body == null || body.isEmpty) {
+Widget _buildBody(String body, List<Widget> customContent) {
+    if (body == null || body.isEmpty) {
     return null;
   }
-  return SingleChildScrollView(child: Text(body));
+  if (customContent == null) {
+    return SingleChildScrollView(child: Text(body));
+  }
+  List<Widget> content = [Text(body)];
+  content.addAll(customContent);
+  return Material(child:
+          SingleChildScrollView(child: 
+            Column(
+              children: content,
+            )
+          ),
+          color: Colors.transparent,
+        );
 }
 
 Widget _buildMaterialActionButton(BuildContext context, AlertAction action) {
